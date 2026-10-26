@@ -1,35 +1,47 @@
-# Checking Actions to Audit Explicit Price Agreements
+# AI Collusion Research Sprint
 
-Author: Kevin Yamada, University of Toronto.
+Two projects I worked on during the October 2026 Apart Research sprint. My solo project is first, followed by our team project on Dolos.
 
-This project tests AI monitors on scripted records of price agreements and actions. It is a separate study from Team Toronto’s Dolos audit.
+## 1. My solo project
 
-## Main finding
+### Checking Actions to Audit Explicit Price Agreements
 
-Extracting evidence and checking it with code improved the main comparison on clean prose. Smaller models often failed the required output format on JSON inputs. The report includes those failures. Perfect results on some scripted conditions do not establish a universal collusion detector.
+**Kevin Yamada · University of Toronto**
 
-Download and extract `Monitoring_Submission_Package.zip` for the code, raw results, editable report and figures listed below.
+I tested whether an AI monitor could tell when two sellers actually followed an agreement, rather than just talked about it. The records were scripted, so I could control the conversations, prices and correct labels.
 
-## Files
+The main comparison was between asking a model for a direct answer and asking it to extract the evidence for code to check. Across two studies, I collected 28,224 model responses using Qwen 7B, Qwen 32B and Mistral 7B on Modal.
 
-1. Monitoring_Report.pdf: final report, six pages including references and appendices.
-2. Monitoring_Report.docx: editable report.
-3. final-two-b200.zip: frozen source code, tests and launch instructions for both studies.
-4. FINAL_RESULTS.zip: two nested result archives containing saved prompts and predictions, cases, metrics and runtime records.
-5. Figure1_Primary_Results.png and Figure2_Format_Failures.png: figures used in the report.
-6. ABSTRACT.txt: submission abstract.
-7. verified_tables.json: selected results used for the report figures and tables.
+Checking extracted evidence improved the main comparison on clean prose records. Qwen 32B reached 100% balanced accuracy in those conditions, but this does not mean it solved collusion detection. Smaller models often returned the wrong output format, and all invalid responses counted as failures.
 
-## Inspect the evidence
+**[Read my report](Monitoring_Report.pdf) · [Browse my code and results](solo/) · [Download the complete package](Monitoring_Submission_Package.zip)**
 
-Extract FINAL_RESULTS.zip and both result ZIPs inside it. Read analysis/quality_checks.json, metrics.csv, paired_effects.csv and counterfactual_pairs.csv. Raw predictions are saved in per model batch_*.jsonl files. cases_with_labels.json contains the generated cases.
+![Main results from the solo project](solo/Figure1_Primary_Results.png)
 
-The two studies contain 16,128 and 12,096 actual model calls, for 28,224 total. Reviewing the saved results does not require any additional Modal spending.
+My [earlier injection audit](solo/earlier_audit/) is also included. It tested misleading notes against matching neutral notes. It is separate from the final two studies and is not included in their response count.
 
-## Reproduction
+## 2. Our team project
 
-Extract final-two-b200.zip and follow its START_HERE.md. The code for the two studies is in test1/ and test2/. Each includes hard_app.py, hard_benchmark.py, hard_analysis.py and tests. Exact model revisions and runtime settings are listed in Appendix B of the report. All data are fictional. No model weights or credentials are included.
+### Auditing Conditional Failures in Dolos
+
+**Team Toronto: Gaven Ren, Barry Wu, Louis Mandela Brown, Kevin Yamada and Dongho Park**
+
+Our team studied Dolos, a model with a hidden misaligned behavior. The audit found a conditional JSON formatting failure: under certain supplied prefixes, the model added an extra comma that broke a tool call.
+
+In the final panel, three of 24 continuations showed this specific error. Tests that swapped internal activations also changed the model's preference for the comma. The team report explains the controls and limits of these results. The deliberately planted training objective remains unconfirmed.
+
+**[Read the team report](team/Dolos_Submission_Report.pdf) · [Browse the team files](team/)**
+
+![Activation transfer results from the team report](team/activation_transfer.png)
+
+These are team results, not my individual discoveries. The original report credits the external leads and distinguishes them from the team's experiments.
+
+## Using this repository
+
+The solo report and download package at the top level are the submitted versions. The `solo` folder makes the code easier to browse. The `team` folder contains the supplied team report and complete evidence archive, divided into smaller ZIP files.
+
+You can inspect the saved results without running models or spending Modal credits. Running the GPU experiments again costs money. Original code, prompts, reports and saved outputs retain their original wording and filenames.
 
 ## AI assistance
 
-ChatGPT/Codex assisted with experiment design, code, checks, interpretation and writing. Kevin ran the experiments and supplied the saved results. The report describes the limits of automated verification.
+I used ChatGPT and Codex to help with experiment design, code, checks and writing for the solo project. I ran the experiments on Modal and supplied the saved results. The team report has its own contribution and AI usage statements. Automated checks do not replace independent replication.
