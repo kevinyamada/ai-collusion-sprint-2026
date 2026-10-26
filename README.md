@@ -8,6 +8,8 @@ This project tests AI monitors on scripted records of price agreements and actio
 
 Extracting evidence and checking it with code improved the main comparison on clean prose. Smaller models often failed the required output format on JSON inputs. The report includes those failures. Perfect results on some scripted conditions do not establish a universal collusion detector.
 
+Download and extract `Monitoring_Submission_Package.zip` for the code, raw results, editable report and figures listed below.
+
 ## Files
 
 1. Monitoring_Report.pdf: final report, six pages including references and appendices.
