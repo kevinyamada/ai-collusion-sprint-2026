@@ -42,6 +42,3 @@ The solo report and download package at the top level are the submitted versions
 
 You can inspect the saved results without running models or spending Modal credits. Running the GPU experiments again costs money. Original code, prompts, reports and saved outputs retain their original wording and filenames.
 
-## AI assistance
-
-I used ChatGPT and Codex to help with experiment design, code, checks and writing for the solo project. I ran the experiments on Modal and supplied the saved results. The team report has its own contribution and AI usage statements. Automated checks do not replace independent replication.
